@@ -60,7 +60,6 @@
             font-size: 1.2em;
         }
 
-
         .background {
             position: fixed;
             top: 0;
@@ -71,7 +70,7 @@
             background-size: 50px 50px;
             animation: scroll 10s linear infinite;
             z-index: -1;
-            opacity: 0.1; /* Уменьшена непрозрачность */
+            opacity: 0.1;
         }
 
         @keyframes scroll {
@@ -82,14 +81,40 @@
                 background-position: -100px -100px;
             }
         }
+
+        /* Стилизация скроллбара для веб-кита (Chrome, Edge, Safari) */
+        ::-webkit-scrollbar {
+            width: 12px; /* Ширина скроллбара */
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a; /* Цвет фона полосы прокрутки */
+            border-radius: 10px; /* Закругление трека */
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #ffffff, #ffffff); /* Градиентная полоса */
+            border-radius: 10px; /* Закругление бегунка */
+            border: 2px solid #000; /* Промежуток между треком и бегунком */
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(45deg, #ffffff, #ffffff); /* Цвет при наведении */
+        }
+
+        /* Стили для Firefox */
+        body {
+            scrollbar-width: thin; /* Узкий скроллбар */
+            scrollbar-color: #ffffff #1a1a1a; /* Цвет бегунка и фона */
+        }
     </style>
 </head>
 <body>
     <script>
-        const GOOGLE_SHEET_ID = '1ufJddrmj3FfaJHAcMUrEI1WkOkffLmOwhZkFU_adzPc'; // Замените на ID вашей таблицы
+        const GOOGLE_SHEET_ID = '1ufJddrmj3FfaJHAcMUrEI1WkOkffLmOwhZkFU_adzPc';
         const SHEET_NAME = 'VIDEO';
-        const SHEETS_API_KEY = 'AIzaSyAb0ShTprNhCSvnnpGfomhkLEXnDcl4NSI'; // Замените на ваш Google API ключ
-        const YOUTUBE_API_KEY = 'AIzaSyAb0ShTprNhCSvnnpGfomhkLEXnDcl4NSI'; // Замените на ваш YouTube API ключ
+        const SHEETS_API_KEY = 'AIzaSyAb0ShTprNhCSvnnpGfomhkLEXnDcl4NSI';
+        const YOUTUBE_API_KEY = 'AIzaSyAb0ShTprNhCSvnnpGfomhkLEXnDcl4NSI';
 
         const fetchData = async () => {
             try {
@@ -184,6 +209,6 @@
 
         fetchData();
     </script>
-        <div class="background"></div>
+    <div class="background"></div>
 </body>
 </html>
