@@ -3,29 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CORE / КОР</title>
+    <title>КОР</title>
     <link rel="icon" href="logo.png" type="image/png">
     <style>
         body {
             margin: 0;
+            font-family: 'Montserrat', sans-serif;
             background-color: black;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: Arial, sans-serif;
-            height: 100vh;
+            color: white;
         }
 
-        .main-logo {
-            z-index: 10;
-            color: white;
-            font-size: 5em;
+        .fullscreen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .fullscreen img {
+            max-width: 30%;
+            height: auto;
+            border-radius: 10px;
+            margin-right: 20px;
+        }
+
+        .fullscreen .text {
+            max-width: 50%;
+        }
+
+        .fullscreen .text h1 {
+            font-size: 10rem;
+            margin-bottom: -1rem;
+            margin-top: -1rem;
+        }
+
+        .fullscreen .text p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 550px;
+        }
+
+        .fullscreen .text button {
+            background-color: white;
+            color: black;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .fullscreen .text button:hover {
+            background-color: gray;
+        }
+
+        .description {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 50px;
+            box-sizing: border-box;
+            background-color: black;
+        }
+
+        .description .text {
+            max-width: 550px;
+        }
+
+        .description .text button {
+            background-color: white;
+            color: black;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .description .text button:hover {
+            background-color: gray;
+        }
+
+        .description img {
+            max-width: 30%;
+            height: auto;
+            width: auto;
+            margin-left: 20px;
+            border-radius: 10px;
+        }
+
+        .participants {
+            padding: 50px;
+            box-sizing: border-box;
+        }
+
+        .participants h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
             text-align: center;
         }
 
+        .participants .list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .participant {
+            text-align: center;
+            width: 150px;
+            background-color: #1a1a1a;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.05);
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .participant img {
+            width: 100%;
+            height: auto;
+            border-radius: 5%;
+            margin-bottom: 10px;
+        }
+
+        .participant .links a {
+            color: rgb(175, 175, 175);
+            text-decoration: none;
+            transition: text-decoration 0.2s, color 0.2s;
+        }
+
+        .participant .links a:hover {
+            text-decoration: underline;
+            color: gray;
+        }
+
+        footer {
+            background-color: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.2s;
+        }
+
+        footer a:hover {
+            color: gray;
+            text-decoration: underline;
+        }
+
         .background {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
@@ -33,8 +177,8 @@
             background: url('logo.png') repeat;
             background-size: 50px 50px;
             animation: scroll 10s linear infinite;
-            z-index: 0;
-            opacity: 0.1; /* Уменьшена непрозрачность */
+            z-index: -1;
+            opacity: 0.1;
         }
 
         @keyframes scroll {
@@ -45,12 +189,285 @@
                 background-position: -100px -100px;
             }
         }
+
+                /* Стилизация скроллбара для веб-кита (Chrome, Edge, Safari) */
+                ::-webkit-scrollbar {
+            width: 12px; /* Ширина скроллбара */
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a; /* Цвет фона полосы прокрутки */
+            border-radius: 10px; /* Закругление трека */
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #ffffff, #ffffff); /* Градиентная полоса */
+            border-radius: 10px; /* Закругление бегунка */
+            border: 2px solid #000; /* Промежуток между треком и бегунком */
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(45deg, #ffffff, #ffffff); /* Цвет при наведении */
+        }
+
+        /* Стили для Firefox */
+        body {
+            scrollbar-width: thin; /* Узкий скроллбар */
+            scrollbar-color: #ffffff #1a1a1a; /* Цвет бегунка и фона */
+        }
     </style>
 </head>
 <body>
-    <div class="background"></div>
-    <div class="main-logo">
-        <img src="logo.png" alt="Логотип" style="width: 400px; height: auto;">
+    <div class="fullscreen">
+        <img src="logo.png" alt="Арт">
+        <div class="text">
+            <h1>КОР</h1>
+            <p>Мы — КОЛЛЕКТИВ творческих ребят, которые занимаются созданием видеороликов и стримингом.</p>
+            <button onclick="document.querySelector('.description').scrollIntoView({ behavior: 'smooth' })">
+                О нас
+            </button>
+            <button onclick="window.location.href='https://core-squad.ru/video'">Наши видео</button>
+        </div>
     </div>
+
+    <div class="description">
+        <div class="text">
+            <h2>О проекте</h2>
+            <p>В прошлом мы были участниками 4-го сезона МайнШилд Академии. Однако, после решения основного состава МайнШилда временно приостановить деятельность Академии, наш коллектив объединился и создал собственный уникальный проект — КОР. <br> <br>КОР стал для нас не просто продолжением пути, но и возможностью воплотить свои идеи, сохранить дух сообщества и предложить что-то новое и интересное всем участникам.</p>
+            <button onclick="window.open('https://t.me/core_squad', '_blank')">Телеграм канал</button>
+            <button onclick="window.open('https://vk.com/club226694986', '_blank')">Группа ВК</button>
+            <button onclick="window.open('https://www.youtube.com/@core_squad', '_blank')">Ютуб канал</button>
+        </div>
+        <img src="o.jpg" alt="Описание проекта">
+    </div>
+
+    <div class="participants">
+        <h2>Участники</h2>
+        <div class="list">
+
+            <div class="participant">
+                <img src="https://mc-heads.net/avatar/40_JIuTpoB_IIuBa" alt="40 Литров Пива">
+                <p>40 Литров Пива</p>
+                <div class="links">
+                    <a href="https://www.youtube.com/@40_JIuTpoB_IIuBa" target="_blank">Ютуб</a> | 
+                    <a href="https://www.twitch.tv/40_jiutpob_iiuba" target="_blank">Твич</a>
+                </div>
+            </div>
+            <div class="participant">
+                <img src="https://mc-heads.net/avatar/Aklim_ka" alt="Аклимка">
+                <p>Аклимка</p>
+                <div class="links">
+                    <a href="https://www.youtube.com/@aklim_ka6539" target="_blank">Ютуб</a> | 
+                    <a href="https://www.twitch.tv/aklim_ka" target="_blank">Твич</a>
+                </div>
+            </div>
+            <div class="participant">
+                <img src="https://mc-heads.net/avatar/MrBeezz" alt="Бизз">
+                <p>Бизз</p>
+                <div class="links">
+                    <a href="https://www.youtube.com/@mrbeezz" target="_blank">Ютуб</a> | 
+                    <a href="https://www.twitch.tv/mr_beezz" target="_blank">Твич</a>
+                </div>
+            </div> 
+            <div class="participant">
+                <img src="https://mc-heads.net/avatar/VacMakac" alt="ВакМакак">
+                <p>ВакМакак</p>
+                <div class="links">
+                    <a href="https://www.youtube.com/@VacMakac" target="_blank">Ютуб</a> | 
+                    <a href="https://www.twitch.tv/VacMakac" target="_blank">Твич</a>
+                </div>
+            </div> 
+            <div class="participant">
+                <img src="https://mc-heads.net/avatar/winx2281337" alt="Винкс">
+                <p>Винкс</p>
+                <div class="links">
+                    <a href="https://www.youtube.com/channel/UCLrmMvbWXsdI96pKq3NkJ0Q" target="_blank">Ютуб</a> | 
+                    <a href="https://www.twitch.tv/winx2281337" target="_blank">Твич</a>
+                </div>
+            </div> 
+            <div class="participant">
+                <img src="https://mc-heads.net/avatar/VIPSSS" alt="Випс">
+                <p>Випс</p>
+                <div class="links">
+                    <a href="https://www.youtube.com/@VIPSSS" target="_blank">Ютуб</a> | 
+                    <a href="https://www.twitch.tv/etovipsss" target="_blank">Твич</a>
+                </div>
+            </div> 
+            <div class="participant">
+                <img src="https://mc-heads.net/avatar/GoverNed_" alt="ГоверНед">
+                <p>ГоверНед</p>
+                <div class="links">
+                    <a href="https://www.youtube.com/@governed_" target="_blank">Ютуб</a> | 
+                    <a href="https://www.twitch.tv/Gover_Ned" target="_blank">Твич</a>
+                </div>
+            </div> 
+            <div class="participant">
+                <img src="https://mc-heads.net/avatar/Zmeec" alt="Змец">
+                <p>Змец</p>
+                <div class="links">
+                    <a href="https://www.youtube.com/@Zmeec" target="_blank">Ютуб</a> | 
+                    <a href="https://www.twitch.tv/zmeec" target="_blank">Твич</a>
+                </div>
+            </div> 
+            <div class="participant">
+                <img src="https://mc-heads.net/avatar/Kavkin" alt="Кавкин">
+                <p>Кавкин</p>
+                <div class="links">
+                    <a href="https://www.youtube.com/@Kavkin" target="_blank">Ютуб</a> | 
+                    <a href="https://www.twitch.tv/kavk1n" target="_blank">Твич</a>
+                </div>
+            </div> 
+            <div class="participant">
+                <img src="https://mc-heads.net/avatar/Kluv_v" alt="Клюв">
+                <p>Клюв</p>
+                <div class="links">
+                    <a href="https://www.youtube.com/@kluv_v" target="_blank">Ютуб</a> | 
+                    <a href="https://www.twitch.tv/kluv_v" target="_blank">Твич</a>
+                </div>
+            </div> 
+            <div class="participant">
+                <img src="https://mc-heads.net/avatar/MagmustX" alt="Магмуст">
+                <p>Магмуст</p>
+                <div class="links">
+                    <a href="https://www.youtube.com/channel/UCRPLlh57xhvm8sb94-aggEA" target="_blank">Ютуб</a> | 
+                    <a href="https://www.twitch.tv/magmust_" target="_blank">Твич</a>
+                </div>
+            </div> 
+            <div class="participant">
+                <img src="https://mc-heads.net/avatar/Martscomm" alt="МартсКом">
+                <p>МартсКом</p>
+                <div class="links">
+                    <a href="https://www.youtube.com/@martscomm" target="_blank">Ютуб</a> | 
+                    <a href="https://www.twitch.tv/marts_comm" target="_blank">Твич</a>
+                </div>
+            </div> 
+            <div class="participant">
+                <img src="https://mc-heads.net/avatar/M_Mafinev" alt="Мафинев">
+                <p>Мафинев</p>
+                <div class="links">
+                    <a href="https://www.youtube.com/@Mafinev" target="_blank">Ютуб</a> | 
+                    <a href="https://www.twitch.tv/mafinev" target="_blank">Твич</a>
+                </div>
+            </div> 
+            <div class="participant">
+                <img src="https://mc-heads.net/avatar/INaggy" alt="Нагги">
+                <p>Нагги</p>
+                <div class="links">
+                    <a href="https://www.youtube.com/@goldnaggets" target="_blank">Ютуб</a> | 
+                    <a href="https://www.twitch.tv/1naggy" target="_blank">Твич</a>
+                </div>
+            </div> 
+            <div class="participant">
+                <img src="https://mc-heads.net/avatar/Nagibayka" alt="Нагибайка">
+                <p>Нагибайка</p>
+                <div class="links">
+                    <a href="https://www.youtube.com/Nagibayka" target="_blank">Ютуб</a> | 
+                    <a href="https://www.twitch.tv/nagibayka___" target="_blank">Твич</a>
+                </div>
+            </div> 
+            <div class="participant">
+                <img src="https://mc-heads.net/avatar/KadotaNukles" alt="Наклс">
+                <p>Наклс</p>
+                <div class="links">
+                    <a href="https://www.youtube.com/channel/UCKjnjmgurwhkqgNiPSQ4cZg" target="_blank">Ютуб</a> | 
+                    <a href="https://www.twitch.tv/Nukles227" target="_blank">Твич</a>
+                </div>
+            </div> 
+            <div class="participant">
+                <img src="https://mc-heads.net/avatar/Novikony" alt="Новикони">
+                <p>Новикони</p>
+                <div class="links">
+                    <a href="https://www.youtube.com/@novikony" target="_blank">Ютуб</a> | 
+                    <a href="https://www.twitch.tv/novikony_" target="_blank">Твич</a>
+                </div>
+            </div> 
+            <div class="participant">
+                <img src="https://mc-heads.net/avatar/OlyaChesapik" alt="Оля Чесапик">
+                <p>Оля Чесапик</p>
+                <div class="links">
+                    <a href="https://www.youtube.com/@olyachesapikgames" target="_blank">Ютуб</a> | 
+                    <a href="https://www.twitch.tv/olyachesapik" target="_blank">Твич</a>
+                </div>
+            </div> 
+            <div class="participant">
+                <img src="https://mc-heads.net/avatar/Optimist_Ezz" alt="Опти">
+                <p>Опти</p>
+                <div class="links">
+                    <a href="https://www.youtube.com/@OptimistEzz" target="_blank">Ютуб</a> | 
+                    <a href="https://www.twitch.tv/optimist_ezz" target="_blank">Твич</a>
+                </div>
+            </div> 
+            <div class="participant">
+                <img src="https://mc-heads.net/avatar/MrPupe" alt="Mr Пупи">
+                <p>Mr Пупи</p>
+                <div class="links">
+                    <a href="https://www.youtube.com/c/MrPupeWhy" target="_blank">Ютуб</a> | 
+                    <a href="https://www.twitch.tv/mrpupe" target="_blank">Твич</a>
+                </div>
+            </div> 
+            <div class="participant">
+                <img src="https://mc-heads.net/avatar/PyHeK" alt="Руник">
+                <p>Руник</p>
+                <div class="links">
+                    <a href="https://www.youtube.com/@PyHeK" target="_blank">Ютуб</a> | 
+                    <a href="https://www.twitch.tv/pyhek_" target="_blank">Твич</a>
+                </div>
+            </div> 
+            <div class="participant">
+                <img src="https://mc-heads.net/avatar/Sevetyan" alt="Севетян">
+                <p>Севетян</p>
+                <div class="links">
+                    <a href="https://www.youtube.com/@Sevetyan" target="_blank">Ютуб</a> | 
+                    <a href="https://www.twitch.tv/sevetyan" target="_blank">Твич</a>
+                </div>
+            </div> 
+            <div class="participant">
+                <img src="https://mc-heads.net/avatar/SmmAssH" alt="Смэш">
+                <p>Смэш</p>
+                <div class="links">
+                    <a href="https://www.youtube.com/@SmmAssH" target="_blank">Ютуб</a> | 
+                    <a href="https://www.twitch.tv/smmassh_" target="_blank">Твич</a>
+                </div>
+            </div> 
+            <div class="participant">
+                <img src="https://mc-heads.net/avatar/hrel_mc" alt="Хрел">
+                <p>Хрел</p>
+                <div class="links">
+                    <a href="https://www.youtube.com/@hrel" target="_blank">Ютуб</a> | 
+                    <a href="https://www.twitch.tv/hrel_mc" target="_blank">Твич</a>
+                </div>
+            </div> 
+            <div class="participant">
+                <img src="https://mc-heads.net/avatar/Fereden" alt="Фереден">
+                <p>Фереден</p>
+                <div class="links">
+                    <a href="https://www.youtube.com/fereden" target="_blank">Ютуб</a> | 
+                    <a href="https://www.twitch.tv/fereden1" target="_blank">Твич</a>
+                </div>
+            </div> 
+            <div class="participant">
+                <img src="https://mc-heads.net/avatar/MrsChiba" alt="Чиба">
+                <p>Чиба</p>
+                <div class="links">
+                    <a href="https://www.youtube.com/@MrsChiba" target="_blank">Ютуб</a> | 
+                    <a href="https://www.twitch.tv/mrsschiba" target="_blank">Твич</a>
+                </div>
+            </div> 
+            <div class="participant">
+                <img src="https://mc-heads.net/avatar/Eboni_Inobe" alt="Эбони">
+                <p>Эбони</p>
+                <div class="links">
+                    <a href="https://www.youtube.com/@Eboni_Inobe" target="_blank">Ютуб</a> | 
+                    <a href="https://www.twitch.tv/eboni_inobe" target="_blank">Твич</a>
+                </div>
+            </div> 
+
+        </div>
+    </div>
+    <div class="background"></div>
+    <footer>
+        <p>Этот сайт не связан с Mojang Studios и не имеет отношения к официальным продуктам Minecraft.</p>
+        <p>Разработано <a href="https://t.me/vacmakac" target="_blank">ВакМакаком</a>, специально для CORE 2025</p>
+    </footer>    
 </body>
 </html>
