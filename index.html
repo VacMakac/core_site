@@ -6,6 +6,35 @@
     <title>КОР</title>
     <link rel="icon" href="logo.png" type="image/png">
     <style>
+        .header {
+            position: fixed;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30%;
+            max-width: 800px;
+            background-color: rgba(25, 25, 25, 0.95);
+            color: white;
+            text-align: center;
+            padding: 15px 20px;
+            font-size: 1.2rem;
+            border-radius: 10px;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: top 0.5s ease;
+        }
+
+        .header a {
+            color: #1e90ff;
+            text-decoration: none;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .header a:hover {
+            text-decoration: underline;
+        }
+
         body {
             margin: 0;
             font-family: 'Montserrat', sans-serif;
@@ -190,34 +219,89 @@
             }
         }
 
-                /* Стилизация скроллбара для веб-кита (Chrome, Edge, Safari) */
-                ::-webkit-scrollbar {
-            width: 12px; /* Ширина скроллбара */
+
+        ::-webkit-scrollbar {
+            width: 12px;
         }
 
         ::-webkit-scrollbar-track {
-            background: #1a1a1a; /* Цвет фона полосы прокрутки */
-            border-radius: 10px; /* Закругление трека */
+            background: #1a1a1a;
+            border-radius: 10px;
         }
 
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(45deg, #ffffff, #ffffff); /* Градиентная полоса */
-            border-radius: 10px; /* Закругление бегунка */
-            border: 2px solid #000; /* Промежуток между треком и бегунком */
+            background: linear-gradient(45deg, #ffffff, #ffffff);
+            border-radius: 10px;
+            border: 2px solid #000;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(45deg, #ffffff, #ffffff); /* Цвет при наведении */
+            background: linear-gradient(45deg, #ffffff, #ffffff);
         }
 
-        /* Стили для Firefox */
         body {
-            scrollbar-width: thin; /* Узкий скроллбар */
-            scrollbar-color: #ffffff #1a1a1a; /* Цвет бегунка и фона */
+            scrollbar-width: thin;
+            scrollbar-color: #ffffff #1a1a1a;
         }
+
+        @media (max-width: 882px) {
+            .header {
+                scale: 80%;
+                width: 50%;
+            }
+            .fullscreen .text {
+                scale: 80%;
+                max-width: 100%;
+            }
+            .description {
+                flex-direction: column;
+            }
+            .description img {
+                order: -1;
+                scale: 150%;
+            }
+            .description .text {
+                max-width: 100%;
+                scale: 90%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .fullscreen {
+                flex-direction: column;
+            }
+            .fullscreen img {
+                order: -1;
+            }
+            .fullscreen .text {
+                max-width: 100%;
+            }
+            .description img {
+                order: -1;
+                margin-top: 20px;
+                scale: 200%;
+            }
+            .description .text {
+                max-width: 100%;
+                scale: 80%;
+            }
+        }
+
+        @media (max-width: 378px) {
+            .header {
+                width: 80%;
+                align-items: center;
+            }
+        }
+
+
     </style>
 </head>
 <body>
+    <div class="header" id="header">
+        Открыт набор на сервер через заявки.<a href="https://example.com" target="_blank">Подробнее</a>
+    </div>    
+
     <div class="fullscreen">
         <img src="logo.png" alt="Арт">
         <div class="text">
@@ -232,7 +316,7 @@
 
     <div class="description">
         <div class="text">
-            <h2>О проекте</h2>
+            <h2>О нас</h2>
             <p>В прошлом мы были участниками 4-го сезона МайнШилд Академии. Однако, после решения основного состава МайнШилда временно приостановить деятельность Академии, наш коллектив объединился и создал собственный уникальный проект — КОР. <br> <br>КОР стал для нас не просто продолжением пути, но и возможностью воплотить свои идеи, сохранить дух сообщества и предложить что-то новое и интересное всем участникам.</p>
             <button onclick="window.open('https://t.me/core_squad', '_blank')">Телеграм канал</button>
             <button onclick="window.open('https://vk.com/club226694986', '_blank')">Группа ВК</button>
@@ -246,7 +330,7 @@
         <div class="list">
 
             <div class="participant">
-                <img src="https://mc-heads.net/avatar/40_JIuTpoB_IIuBa" alt="40 Литров Пива">
+                <img src="https://api.mcheads.org/head/40_JIuTpoB_IIuBa/180" alt="40 Литров Пива">
                 <p>40 Литров Пива</p>
                 <div class="links">
                     <a href="https://www.youtube.com/@40_JIuTpoB_IIuBa" target="_blank">Ютуб</a> | 
@@ -254,7 +338,7 @@
                 </div>
             </div>
             <div class="participant">
-                <img src="https://mc-heads.net/avatar/Aklim_ka" alt="Аклимка">
+                <img src="https://api.mcheads.org/head/Aklim_ka/180" alt="Аклимка">
                 <p>Аклимка</p>
                 <div class="links">
                     <a href="https://www.youtube.com/@aklim_ka6539" target="_blank">Ютуб</a> | 
@@ -262,7 +346,7 @@
                 </div>
             </div>
             <div class="participant">
-                <img src="https://mc-heads.net/avatar/MrBeezz" alt="Бизз">
+                <img src="https://api.mcheads.org/head/MrBeezz/180" alt="Бизз">
                 <p>Бизз</p>
                 <div class="links">
                     <a href="https://www.youtube.com/@mrbeezz" target="_blank">Ютуб</a> | 
@@ -270,7 +354,7 @@
                 </div>
             </div> 
             <div class="participant">
-                <img src="https://mc-heads.net/avatar/VacMakac" alt="ВакМакак">
+                <img src="https://api.mcheads.org/head/VacMakac/180" alt="ВакМакак">
                 <p>ВакМакак</p>
                 <div class="links">
                     <a href="https://www.youtube.com/@VacMakac" target="_blank">Ютуб</a> | 
@@ -278,7 +362,7 @@
                 </div>
             </div> 
             <div class="participant">
-                <img src="https://mc-heads.net/avatar/winx2281337" alt="Винкс">
+                <img src="https://api.mcheads.org/head/winx2281337/180" alt="Винкс">
                 <p>Винкс</p>
                 <div class="links">
                     <a href="https://www.youtube.com/channel/UCLrmMvbWXsdI96pKq3NkJ0Q" target="_blank">Ютуб</a> | 
@@ -286,7 +370,7 @@
                 </div>
             </div> 
             <div class="participant">
-                <img src="https://mc-heads.net/avatar/VIPSSS" alt="Випс">
+                <img src="https://api.mcheads.org/head/VIPSSS/180" alt="Випс">
                 <p>Випс</p>
                 <div class="links">
                     <a href="https://www.youtube.com/@VIPSSS" target="_blank">Ютуб</a> | 
@@ -294,7 +378,7 @@
                 </div>
             </div> 
             <div class="participant">
-                <img src="https://mc-heads.net/avatar/GoverNed_" alt="ГоверНед">
+                <img src="https://api.mcheads.org/head/GoverNed_/180" alt="ГоверНед">
                 <p>ГоверНед</p>
                 <div class="links">
                     <a href="https://www.youtube.com/@governed_" target="_blank">Ютуб</a> | 
@@ -302,7 +386,7 @@
                 </div>
             </div> 
             <div class="participant">
-                <img src="https://mc-heads.net/avatar/Zmeec" alt="Змец">
+                <img src="https://api.mcheads.org/head/Zmeec/180" alt="Змец">
                 <p>Змец</p>
                 <div class="links">
                     <a href="https://www.youtube.com/@Zmeec" target="_blank">Ютуб</a> | 
@@ -310,7 +394,7 @@
                 </div>
             </div> 
             <div class="participant">
-                <img src="https://mc-heads.net/avatar/Kavkin" alt="Кавкин">
+                <img src="https://api.mcheads.org/head/Kavkin/180" alt="Кавкин">
                 <p>Кавкин</p>
                 <div class="links">
                     <a href="https://www.youtube.com/@Kavkin" target="_blank">Ютуб</a> | 
@@ -318,7 +402,7 @@
                 </div>
             </div> 
             <div class="participant">
-                <img src="https://mc-heads.net/avatar/Kluv_v" alt="Клюв">
+                <img src="https://api.mcheads.org/head/Kluv_v/180" alt="Клюв">
                 <p>Клюв</p>
                 <div class="links">
                     <a href="https://www.youtube.com/@kluv_v" target="_blank">Ютуб</a> | 
@@ -326,7 +410,7 @@
                 </div>
             </div> 
             <div class="participant">
-                <img src="https://mc-heads.net/avatar/MagmustX" alt="Магмуст">
+                <img src="https://api.mcheads.org/head/MagmustX/180" alt="Магмуст">
                 <p>Магмуст</p>
                 <div class="links">
                     <a href="https://www.youtube.com/channel/UCRPLlh57xhvm8sb94-aggEA" target="_blank">Ютуб</a> | 
@@ -334,7 +418,7 @@
                 </div>
             </div> 
             <div class="participant">
-                <img src="https://mc-heads.net/avatar/Martscomm" alt="МартсКом">
+                <img src="https://api.mcheads.org/head/Martscomm/180" alt="МартсКом">
                 <p>МартсКом</p>
                 <div class="links">
                     <a href="https://www.youtube.com/@martscomm" target="_blank">Ютуб</a> | 
@@ -342,7 +426,7 @@
                 </div>
             </div> 
             <div class="participant">
-                <img src="https://mc-heads.net/avatar/M_Mafinev" alt="Мафинев">
+                <img src="https://api.mcheads.org/head/M_Mafinev/180" alt="Мафинев">
                 <p>Мафинев</p>
                 <div class="links">
                     <a href="https://www.youtube.com/@Mafinev" target="_blank">Ютуб</a> | 
@@ -350,7 +434,7 @@
                 </div>
             </div> 
             <div class="participant">
-                <img src="https://mc-heads.net/avatar/INaggy" alt="Нагги">
+                <img src="https://api.mcheads.org/head/INaggy/180" alt="Нагги">
                 <p>Нагги</p>
                 <div class="links">
                     <a href="https://www.youtube.com/@goldnaggets" target="_blank">Ютуб</a> | 
@@ -358,7 +442,7 @@
                 </div>
             </div> 
             <div class="participant">
-                <img src="https://mc-heads.net/avatar/Nagibayka" alt="Нагибайка">
+                <img src="https://api.mcheads.org/head/Nagibayka/180" alt="Нагибайка">
                 <p>Нагибайка</p>
                 <div class="links">
                     <a href="https://www.youtube.com/Nagibayka" target="_blank">Ютуб</a> | 
@@ -366,7 +450,7 @@
                 </div>
             </div> 
             <div class="participant">
-                <img src="https://mc-heads.net/avatar/KadotaNukles" alt="Наклс">
+                <img src="https://api.mcheads.org/head/KadotaNukles/180" alt="Наклс">
                 <p>Наклс</p>
                 <div class="links">
                     <a href="https://www.youtube.com/channel/UCKjnjmgurwhkqgNiPSQ4cZg" target="_blank">Ютуб</a> | 
@@ -374,7 +458,7 @@
                 </div>
             </div> 
             <div class="participant">
-                <img src="https://mc-heads.net/avatar/Novikony" alt="Новикони">
+                <img src="https://api.mcheads.org/head/Novikony/180" alt="Новикони">
                 <p>Новикони</p>
                 <div class="links">
                     <a href="https://www.youtube.com/@novikony" target="_blank">Ютуб</a> | 
@@ -382,7 +466,7 @@
                 </div>
             </div> 
             <div class="participant">
-                <img src="https://mc-heads.net/avatar/OlyaChesapik" alt="Оля Чесапик">
+                <img src="https://api.mcheads.org/head/OlyaChesapik/180" alt="Оля Чесапик">
                 <p>Оля Чесапик</p>
                 <div class="links">
                     <a href="https://www.youtube.com/@olyachesapikgames" target="_blank">Ютуб</a> | 
@@ -390,7 +474,7 @@
                 </div>
             </div> 
             <div class="participant">
-                <img src="https://mc-heads.net/avatar/Optimist_Ezz" alt="Опти">
+                <img src="https://api.mcheads.org/head/Optimist_Ezz/180" alt="Опти">
                 <p>Опти</p>
                 <div class="links">
                     <a href="https://www.youtube.com/@OptimistEzz" target="_blank">Ютуб</a> | 
@@ -398,7 +482,7 @@
                 </div>
             </div> 
             <div class="participant">
-                <img src="https://mc-heads.net/avatar/MrPupe" alt="Mr Пупи">
+                <img src="https://api.mcheads.org/head/MrPupe/180" alt="Mr Пупи">
                 <p>Mr Пупи</p>
                 <div class="links">
                     <a href="https://www.youtube.com/c/MrPupeWhy" target="_blank">Ютуб</a> | 
@@ -406,7 +490,7 @@
                 </div>
             </div> 
             <div class="participant">
-                <img src="https://mc-heads.net/avatar/PyHeK" alt="Руник">
+                <img src="https://api.mcheads.org/head/PyHeK/180" alt="Руник">
                 <p>Руник</p>
                 <div class="links">
                     <a href="https://www.youtube.com/@PyHeK" target="_blank">Ютуб</a> | 
@@ -414,7 +498,7 @@
                 </div>
             </div> 
             <div class="participant">
-                <img src="https://mc-heads.net/avatar/Sevetyan" alt="Севетян">
+                <img src="https://api.mcheads.org/head/Sevetyan/180" alt="Севетян">
                 <p>Севетян</p>
                 <div class="links">
                     <a href="https://www.youtube.com/@Sevetyan" target="_blank">Ютуб</a> | 
@@ -422,7 +506,7 @@
                 </div>
             </div> 
             <div class="participant">
-                <img src="https://mc-heads.net/avatar/SmmAssH" alt="Смэш">
+                <img src="https://api.mcheads.org/head/SmmAssH/180" alt="Смэш">
                 <p>Смэш</p>
                 <div class="links">
                     <a href="https://www.youtube.com/@SmmAssH" target="_blank">Ютуб</a> | 
@@ -430,7 +514,7 @@
                 </div>
             </div> 
             <div class="participant">
-                <img src="https://mc-heads.net/avatar/hrel_mc" alt="Хрел">
+                <img src="https://api.mcheads.org/head/hrel_mc/180" alt="Хрел">
                 <p>Хрел</p>
                 <div class="links">
                     <a href="https://www.youtube.com/@hrel" target="_blank">Ютуб</a> | 
@@ -438,7 +522,7 @@
                 </div>
             </div> 
             <div class="participant">
-                <img src="https://mc-heads.net/avatar/Fereden" alt="Фереден">
+                <img src="https://api.mcheads.org/head/Fereden/180" alt="Фереден">
                 <p>Фереден</p>
                 <div class="links">
                     <a href="https://www.youtube.com/fereden" target="_blank">Ютуб</a> | 
@@ -446,7 +530,7 @@
                 </div>
             </div> 
             <div class="participant">
-                <img src="https://mc-heads.net/avatar/MrsChiba" alt="Чиба">
+                <img src="https://api.mcheads.org/head/MrsChiba/180" alt="Чиба">
                 <p>Чиба</p>
                 <div class="links">
                     <a href="https://www.youtube.com/@MrsChiba" target="_blank">Ютуб</a> | 
@@ -454,7 +538,7 @@
                 </div>
             </div> 
             <div class="participant">
-                <img src="https://mc-heads.net/avatar/Eboni_Inobe" alt="Эбони">
+                <img src="https://api.mcheads.org/head/Eboni_Inobe/180" alt="Эбони">
                 <p>Эбони</p>
                 <div class="links">
                     <a href="https://www.youtube.com/@Eboni_Inobe" target="_blank">Ютуб</a> | 
@@ -468,6 +552,14 @@
     <footer>
         <p>Этот сайт не связан с Mojang Studios и не имеет отношения к официальным продуктам Minecraft.</p>
         <p>Разработано <a href="https://t.me/vacmakac" target="_blank">ВакМакаком</a>, специально для CORE 2025</p>
-    </footer>    
+    </footer>
+    <script>
+        window.addEventListener('load', () => {
+            const header = document.getElementById('header');
+            setTimeout(() => {
+                header.style.top = '20px';
+            }, 300);
+        });
+    </script>         
 </body>
 </html>
