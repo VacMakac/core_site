@@ -303,8 +303,8 @@
 </head>
 <body>
     <div class="header" id="header">
-        <span id="timer">Загрузка...</span>
-    </div> 
+        0X.01.2025 - 1X-XX
+    </div>    
 
     <div class="fullscreen">
         <img src="logo.png" alt="Арт">
@@ -560,36 +560,10 @@
     <script>
         window.addEventListener('load', () => {
             const header = document.getElementById('header');
-            const timerElement = document.getElementById('timer');
-            
-            const targetDate = new Date('2025-01-15T18:00:00');
-    
-            const updateTimer = () => {
-                const now = new Date();
-                const remainingTime = targetDate - now;
-    
-                if (remainingTime > 0) {
-                    const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
-                    const hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
-                    const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
-    
-                    timerElement.textContent = 
-                        `${String(days).padStart(2, '0')}:${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-                } else {
-                    clearInterval(timerInterval);
-                    timerElement.innerHTML = 
-                        'Открыт набор на сервер через заявки. <a href="https://example.com" target="_blank">Подробнее</a>';
-                }
-            };
-    
-            const timerInterval = setInterval(updateTimer, 1000);
-            updateTimer();
-    
             setTimeout(() => {
                 header.style.top = '20px';
             }, 300);
         });
-    </script>
+    </script>         
 </body>
 </html>
