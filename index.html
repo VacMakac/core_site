@@ -11,13 +11,12 @@
             top: -100px;
             left: 50%;
             transform: translateX(-50%);
-            width: 30%;
             max-width: 800px;
             background-color: rgba(25, 25, 25, 0.95);
             color: white;
             text-align: center;
             padding: 15px 20px;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             border-radius: 10px;
             z-index: 1000;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -247,7 +246,6 @@
         @media (max-width: 882px) {
             .header {
                 font-size: 1rem;
-                width: 50%;
             }
             .fullscreen .text {
                 scale: 80%;
@@ -286,14 +284,12 @@
                 scale: 80%;
             }
             .header {
-                width: 80%;
                 font-size: 0.8rem;
             }
         }
 
         @media (max-width: 378px) {
             .header {
-                width: 80%;
                 font-size: 1rem;
             }
         }
@@ -301,10 +297,10 @@
 
     </style>
 </head>
-<body>    
+<body>
     <div class="header" id="header">
-        ?1.01.2025 - 1?:00 📫
-    </div>    
+        Загрузка...</a>
+    </div>   
 
     <div class="fullscreen">
         <img src="logo.png" alt="Арт">
@@ -353,7 +349,7 @@
                 <img src="head/MrBeezz.png" alt="Бизз">
                 <p>Бизз</p>
                 <div class="links">
-                    <a href="https://www.youtube.com/@%D0%91%D0%B8%D0%B7%D0%B7" target="_blank">Ютуб</a> | 
+                    <a href="https://www.youtube.com/@mrbeezz" target="_blank">Ютуб</a> | 
                     <a href="https://www.twitch.tv/mr_beezz" target="_blank">Твич</a>
                 </div>
             </div> 
@@ -537,8 +533,8 @@
                 <img src="head/MrsChiba.png" alt="Чиба">
                 <p>Чиба</p>
                 <div class="links">
-                    <a href="https://www.youtube.com/@MsChiba" target="_blank">Ютуб</a> | 
-                    <a href="https://www.twitch.tv/msschiba" target="_blank">Твич</a>
+                    <a href="https://www.youtube.com/@MrsChiba" target="_blank">Ютуб</a> | 
+                    <a href="https://www.twitch.tv/mrsschiba" target="_blank">Твич</a>
                 </div>
             </div> 
             <div class="participant">
@@ -549,7 +545,7 @@
                     <a href="https://www.twitch.tv/eboni_inobe" target="_blank">Твич</a>
                 </div>
             </div> 
-            
+
         </div>
     </div>
     <div class="background"></div>
@@ -563,6 +559,44 @@
             setTimeout(() => {
                 header.style.top = '20px';
             }, 300);
+
+            const countdownElement = document.getElementById('header');
+
+            const targetDate = new Date('2025-01-11T13:00:00+03:00');
+
+            async function fetchServerTime() {
+                try {
+                    const response = await fetch('https://timeapi.io/api/Time/current/zone?timeZone=Europe/Moscow');
+                    const data = await response.json();
+                    return new Date(data.dateTime);
+                } catch (error) {
+                    console.error(error);
+                    return new Date();
+                }
+            }
+
+            async function startCountdown() {
+                const serverTime = await fetchServerTime();
+                const interval = setInterval(() => {
+                    const now = new Date(serverTime.getTime() + (new Date() - serverTime));
+                    const timeDiff = targetDate - now;
+
+                    if (timeDiff <= 0) {
+                        clearInterval(interval);
+                        countdownElement.textContent = "";
+                        location.reload();
+                        return;
+                    }
+
+                    const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+                    countdownElement.textContent = `Осталось - ${hours}ч : ${minutes}м : ${seconds}с`;
+                }, 1000);
+            }
+
+            startCountdown();
         });
     </script>         
 </body>
