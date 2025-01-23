@@ -17,6 +17,14 @@
             padding: 20px;
         }
 
+        .total-views {
+            width: 100%;
+            text-align: center;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
         .tile {
             background-color: #1a1a1a;
             border-radius: 10px;
@@ -32,7 +40,6 @@
             cursor: pointer;
             transition: box-shadow 0.3s;
         }
-
 
         .tile:hover img {
             transform: scale(1.05);
@@ -117,11 +124,15 @@
     </style>
 </head>
 <body>
+    <div class="total-views">Общее количество просмотров: 0</div>
     <script>
         const GOOGLE_SHEET_ID = '1ufJddrmj3FfaJHAcMUrEI1WkOkffLmOwhZkFU_adzPc';
         const SHEET_NAME = 'VIDEO';
         const SHEETS_API_KEY = 'AIzaSyAb0ShTprNhCSvnnpGfomhkLEXnDcl4NSI';
         const YOUTUBE_API_KEY = 'AIzaSyAb0ShTprNhCSvnnpGfomhkLEXnDcl4NSI';
+
+        let totalViews = 0;
+        const totalViewsElement = document.querySelector('.total-views');
 
         const fetchData = async () => {
             try {
@@ -146,12 +157,18 @@
                 if (videoId) {
                     const youtubeData = await fetchYoutubeData(videoId);
                     if (youtubeData) {
+                        totalViews += Number(youtubeData.views);
+                        updateTotalViews();
                         createTile(videoId, youtubeData, link);
                     }
                 } else {
                     console.warn(`Не удалось извлечь ID из ссылки: ${link}`);
                 }
             }
+        };
+
+        const updateTotalViews = () => {
+            totalViewsElement.textContent = `Общее количество просмотров: ${totalViews.toLocaleString()}`;
         };
 
         const extractVideoId = (link) => {
