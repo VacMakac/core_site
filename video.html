@@ -15,6 +15,7 @@
             flex-wrap: wrap;
             justify-content: center;
             padding: 20px;
+            cursor: wait;
         }
 
         .total-views {
@@ -141,6 +142,10 @@
 
         let totalViews = 0;
         const totalViewsElement = document.querySelector('.total-views');
+
+        setTimeout(() => {
+            document.body.style.cursor = 'default';
+        }, 2000);
 
         const fetchData = async () => {
             try {
