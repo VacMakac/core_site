@@ -21,8 +21,16 @@
             width: 100%;
             text-align: center;
             font-size: 1.5em;
-            margin-bottom: 20px;
+            margin-bottom: 5px;
             font-weight: bold;
+        }
+
+        .update-info {
+            width: 100%;
+            text-align: center;
+            font-size: 0.9em;
+            color: #858585;
+            margin-bottom: 20px;
         }
 
         .tile {
@@ -125,11 +133,11 @@
 </head>
 <body>
     <div class="total-views">Общее количество просмотров: 0</div>
+    <div class="update-info">*статистика обновляется раз в час</div>
     <script>
         const GOOGLE_SHEET_ID = '1ufJddrmj3FfaJHAcMUrEI1WkOkffLmOwhZkFU_adzPc';
         const SHEET_NAME = 'VIDEO';
         const SHEETS_API_KEY = 'AIzaSyAb0ShTprNhCSvnnpGfomhkLEXnDcl4NSI';
-        const YOUTUBE_API_KEY = 'AIzaSyAb0ShTprNhCSvnnpGfomhkLEXnDcl4NSI';
 
         let totalViews = 0;
         const totalViewsElement = document.querySelector('.total-views');
@@ -140,9 +148,10 @@
                 const response = await fetch(sheetUrl);
                 const data = await response.json();
 
-                if (data.values && data.values.length > 0) {
-                    const videoLinks = data.values.flat().filter(link => link.startsWith('http'));
-                    displayVideos(videoLinks);
+                if (data.values && data.values.length > 1) {
+                    const rows = data.values.slice(1);
+                    displayVideos(rows);
+                    updateTotalViews(rows);
                 } else {
                     console.error("Нет данных в таблице.");
                 }
@@ -151,84 +160,37 @@
             }
         };
 
-        const displayVideos = async (videoLinks) => {
-            for (const link of videoLinks) {
-                const videoId = extractVideoId(link);
-                if (videoId) {
-                    const youtubeData = await fetchYoutubeData(videoId);
-                    if (youtubeData) {
-                        totalViews += Number(youtubeData.views);
-                        updateTotalViews();
-                        createTile(videoId, youtubeData, link);
-                    }
-                } else {
-                    console.warn(`Не удалось извлечь ID из ссылки: ${link}`);
-                }
-            }
+        const displayVideos = (rows) => {
+            rows.forEach(row => {
+                const [link, title, channel, views, date, thumbnail] = row;
+
+                const container = document.createElement('div');
+                container.className = 'tile';
+                container.onclick = () => window.open(link, '_blank');
+
+                const thumbnailImg = document.createElement('img');
+                thumbnailImg.src = thumbnail || 'placeholder.jpg';
+                thumbnailImg.alt = title;
+
+                const titleDiv = document.createElement('div');
+                titleDiv.className = 'title';
+                titleDiv.textContent = title;
+
+                const infoDiv = document.createElement('div');
+                infoDiv.className = 'info';
+                infoDiv.innerHTML = `<span class="nickname">${channel}</span><br>${Number(views).toLocaleString()} просмотров<br>${date}`;
+
+                container.appendChild(thumbnailImg);
+                container.appendChild(titleDiv);
+                container.appendChild(infoDiv);
+
+                document.body.appendChild(container);
+            });
         };
 
-        const updateTotalViews = () => {
+        const updateTotalViews = (rows) => {
+            totalViews = rows.reduce((sum, row) => sum + (parseInt(row[3]) || 0), 0);
             totalViewsElement.textContent = `Общее количество просмотров: ${totalViews.toLocaleString()}`;
-        };
-
-        const extractVideoId = (link) => {
-            const match = link.match(/(?:v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
-            return match ? match[1] : null;
-        };
-
-        const fetchYoutubeData = async (videoId) => {
-            try {
-                const url = `https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=${videoId}&key=${YOUTUBE_API_KEY}`;
-                const response = await fetch(url);
-                const data = await response.json();
-                if (data.items && data.items.length > 0) {
-                    const video = data.items[0];
-                    return {
-                        title: video.snippet.title,
-                        nickname: video.snippet.channelTitle,
-                        views: video.statistics.viewCount,
-                        date: formatDate(video.snippet.publishedAt),
-                    };
-                } else {
-                    console.warn(`Видео не найдено: ${videoId}`);
-                }
-            } catch (error) {
-                console.error("Ошибка при загрузке данных из YouTube API:", error);
-            }
-            return null;
-        };
-
-        const formatDate = (dateString) => {
-            const date = new Date(dateString);
-            const months = [
-                'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
-                'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'
-            ];
-            return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
-        };
-
-        const createTile = (videoId, youtubeData, link) => {
-            const container = document.createElement('div');
-            container.className = 'tile';
-            container.onclick = () => window.open(link, '_blank');
-
-            const thumbnail = document.createElement('img');
-            thumbnail.src = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
-            thumbnail.alt = youtubeData.title;
-
-            const title = document.createElement('div');
-            title.className = 'title';
-            title.textContent = youtubeData.title;
-
-            const info = document.createElement('div');
-            info.className = 'info';
-            info.innerHTML = `<span class="nickname">${youtubeData.nickname}</span><br>${Number(youtubeData.views).toLocaleString()} просмотров<br>${youtubeData.date}`;
-
-            container.appendChild(thumbnail);
-            container.appendChild(title);
-            container.appendChild(info);
-
-            document.body.appendChild(container);
         };
 
         fetchData();
