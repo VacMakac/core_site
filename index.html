@@ -172,6 +172,166 @@
             color: gray;
         }
 
+        .participant {
+            position: relative;
+            text-align: center;
+            width: 150px;
+            background-color: #1a1a1a;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.05);
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            overflow: visible;
+        }
+
+        .participant .icon {
+            position: absolute;
+            top: 0px;
+            left: -8px;
+            width: 40px;
+            height: 40px;
+            border-radius: 0%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .participant .icon img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .participant .icon:hover {
+            transform: scale(1.3);
+        }
+
+        .participant .icon .tooltip {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            font-size: 0.8rem;
+            padding: 5px 10px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .participant .icon:hover .tooltip {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+ 
+        .news {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 50px;
+            box-sizing: border-box;
+            background-color: black;
+        }
+
+        .news .text {
+            max-width: 550px;
+        }
+
+        .news .text button {
+            background-color: white;
+            color: black;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .news .text button:hover {
+            background-color: gray;
+        }
+
+        .news .video {
+            flex: 1;
+            max-width: 30%;
+            padding-right: 50px;
+        }
+
+        .news .video iframe {
+            width: 100%;
+            height: 300px;
+            border-radius: 10px;
+        }
+
+        .origins {
+            padding: 50px;
+            box-sizing: border-box;
+            color: white;
+            border-radius: 10px;
+        }
+
+        .origins h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 30px;
+        }
+
+        .origins .list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .origins .participant {
+            width: 303px;
+            background-color: #1a1a1a;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: left;
+            color: white;
+        }
+
+        .origins .participant h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            margin-top: 0px;
+            color: #ffa500;
+        }
+
+        .origins .participant p {
+            margin: 10px 0;
+            font-size: 1rem;
+        }
+
+        .origins .participant ul {
+            margin: 0;
+            padding-left: 20px;
+            list-style: none;
+        }
+
+        .origins .participant ul li {
+            position: relative;
+            margin-bottom: 5px;
+            padding-left: 20px;
+        }
+
+        .origins .participant ul li::before {
+            content: "-";
+            position: absolute;
+            left: 0;
+            color: #ffa500;
+        }
+
         footer {
             background-color: #1a1a1a;
             color: white;
@@ -218,7 +378,6 @@
                 background-position: -100px -100px;
             }
         }
-
 
         ::-webkit-scrollbar {
             width: 12px;
@@ -335,16 +494,23 @@
     <div class="participants">
         <h2>Участники</h2>
         <div class="list">
-
             <div class="participant">
+                <div class="icon" title="">
+                    <img src="origins/cat.png" alt="Коточеловек">
+                    <span class="tooltip">Коточеловек</span>
+                </div>
                 <img src="head/40_JIuTpoB_IIuBa.png" alt="40 Литров Пива">
                 <p>40 Литров Пива</p>
                 <div class="links">
                     <a href="https://www.youtube.com/@40_JIuTpoB_IIuBa" target="_blank">Ютуб</a> | 
                     <a href="https://www.twitch.tv/40_jiutpob_iiuba" target="_blank">Твич</a>
                 </div>
-            </div>
+            </div>                     
             <div class="participant">
+                <div class="icon" title="">
+                    <img src="origins/wolf.png" alt="Волк">
+                    <span class="tooltip">Волк</span>
+                </div>
                 <img src="head/Aklim_ka.png" alt="Аклимка">
                 <p>Аклимка</p>
                 <div class="links">
@@ -353,6 +519,10 @@
                 </div>
             </div>
             <div class="participant">
+                <div class="icon" title="">
+                    <img src="origins/bee.png" alt="Пчела">
+                    <span class="tooltip">Пчела</span>
+                </div>
                 <img src="head/MrBeezz.png" alt="Бизз">
                 <p>Бизз</p>
                 <div class="links">
@@ -361,6 +531,10 @@
                 </div>
             </div> 
             <div class="participant">
+                <div class="icon" title="">
+                    <img src="origins/bee.png" alt="Пчела">
+                    <span class="tooltip">Пчела</span>
+                </div>
                 <img src="head/VacMakac.png" alt="ВакМакак">
                 <p>ВакМакак</p>
                 <div class="links">
@@ -369,6 +543,10 @@
                 </div>
             </div> 
             <div class="participant">
+                <div class="icon" title="">
+                    <img src="origins/human.png" alt="Человек">
+                    <span class="tooltip">Человек</span>
+                </div>
                 <img src="head/winx2281337.png" alt="Винкс">
                 <p>Винкс</p>
                 <div class="links">
@@ -377,6 +555,10 @@
                 </div>
             </div> 
             <div class="participant">
+                <div class="icon" title="">
+                    <img src="origins/shulker.png" alt="Шалкер">
+                    <span class="tooltip">Шалкер</span>
+                </div>
                 <img src="head/VIPSSS.png" alt="Випс">
                 <p>Випс</p>
                 <div class="links">
@@ -385,6 +567,10 @@
                 </div>
             </div> 
             <div class="participant">
+                <div class="icon" title="">
+                    <img src="origins/cat.png" alt="Коточеловек">
+                    <span class="tooltip">Коточеловек</span>
+                </div>
                 <img src="head/GoverNed_.png" alt="ГоверНед">
                 <p>ГоверНед</p>
                 <div class="links">
@@ -393,6 +579,10 @@
                 </div>
             </div> 
             <div class="participant">
+                <div class="icon" title="">
+                    <img src="origins/roi.png" alt="Разум роя">
+                    <span class="tooltip">Разум роя</span>
+                </div>
                 <img src="head/Zmeec.png" alt="Змец">
                 <p>Змец</p>
                 <div class="links">
@@ -401,6 +591,10 @@
                 </div>
             </div> 
             <div class="participant">
+                <div class="icon" title="">
+                    <img src="origins/human.png" alt="Человек">
+                    <span class="tooltip">Человек</span>
+                </div>
                 <img src="head/Kavkin.png" alt="Кавкин">
                 <p>Кавкин</p>
                 <div class="links">
@@ -409,6 +603,10 @@
                 </div>
             </div> 
             <div class="participant">
+                <div class="icon" title="">
+                    <img src="origins/elytra.png" alt="Элитрианец">
+                    <span class="tooltip">Элитрианец</span>
+                </div>
                 <img src="head/Kluv_v.png" alt="Клюв">
                 <p>Клюв</p>
                 <div class="links">
@@ -417,6 +615,10 @@
                 </div>
             </div> 
             <div class="participant">
+                <div class="icon" title="">
+                    <img src="origins/cat.png" alt="Коточеловек">
+                    <span class="tooltip">Коточеловек</span>
+                </div>
                 <img src="head/MagmustX.png" alt="Магмуст">
                 <p>Магмуст</p>
                 <div class="links">
@@ -425,6 +627,10 @@
                 </div>
             </div> 
             <div class="participant">
+                <div class="icon" title="">
+                    <img src="origins/ad.png" alt="Огнерождённый">
+                    <span class="tooltip">Огнерождённый</span>
+                </div>
                 <img src="head/Martscomm.png" alt="МартсКом">
                 <p>МартсКом</p>
                 <div class="links">
@@ -433,6 +639,10 @@
                 </div>
             </div> 
             <div class="participant">
+                <div class="icon" title="">
+                    <img src="origins/shulker.png" alt="Шалкер">
+                    <span class="tooltip">Шалкер</span>
+                </div>
                 <img src="head/M_Mafinev.png" alt="Мафинев">
                 <p>Мафинев</p>
                 <div class="links">
@@ -441,6 +651,10 @@
                 </div>
             </div> 
             <div class="participant">
+                <div class="icon" title="">
+                    <img src="origins/ender.png" alt="Эндерианец">
+                    <span class="tooltip">Эндерианец</span>
+                </div>
                 <img src="head/INaggy.png" alt="Нагги">
                 <p>Нагги</p>
                 <div class="links">
@@ -449,6 +663,10 @@
                 </div>
             </div> 
             <div class="participant">
+                <div class="icon" title="">
+                    <img src="origins/elytra.png" alt="Элитрианец">
+                    <span class="tooltip">Элитрианец</span>
+                </div>
                 <img src="head/Nagibayka.png" alt="Нагибайка">
                 <p>Нагибайка</p>
                 <div class="links">
@@ -457,6 +675,10 @@
                 </div>
             </div> 
             <div class="participant">
+                <div class="icon" title="">
+                    <img src="origins/fish.png" alt="Рыба">
+                    <span class="tooltip">Рыба</span>
+                </div>
                 <img src="head/KadotaNukles.png" alt="Наклс">
                 <p>Наклс</p>
                 <div class="links">
@@ -465,6 +687,10 @@
                 </div>
             </div> 
             <div class="participant">
+                <div class="icon" title="">
+                    <img src="origins/zombi.png" alt="Нежить">
+                    <span class="tooltip">Нежить</span>
+                </div>
                 <img src="head/Novikony.png" alt="Новикони">
                 <p>Новикони</p>
                 <div class="links">
@@ -473,6 +699,10 @@
                 </div>
             </div> 
             <div class="participant">
+                <div class="icon" title="">
+                    <img src="origins/shulker.png" alt="Шалкер">
+                    <span class="tooltip">Шалкер</span>
+                </div>
                 <img src="head/OlyaChesapik.png" alt="Оля Чесапик">
                 <p>Оля Чесапик</p>
                 <div class="links">
@@ -481,6 +711,10 @@
                 </div>
             </div> 
             <div class="participant">
+                <div class="icon" title="">
+                    <img src="origins/dragon.png" alt="Драконорождённый">
+                    <span class="tooltip">Драконорождённый</span>
+                </div>
                 <img src="head/Optimist_Ezz.png" alt="Опти">
                 <p>Опти</p>
                 <div class="links">
@@ -489,6 +723,10 @@
                 </div>
             </div> 
             <div class="participant">
+                <div class="icon" title="">
+                    <img src="origins/human.png" alt="Человек">
+                    <span class="tooltip">Человек</span>
+                </div>
                 <img src="head/MrPupe.png" alt="Mr Пупи">
                 <p>Mr Пупи</p>
                 <div class="links">
@@ -497,6 +735,10 @@
                 </div>
             </div> 
             <div class="participant">
+                <div class="icon" title="">
+                    <img src="origins/bolt.png" alt="Инчлинг">
+                    <span class="tooltip">Инчлинг</span>
+                </div>
                 <img src="head/PyHeK.png" alt="Руник">
                 <p>Руник</p>
                 <div class="links">
@@ -505,6 +747,10 @@
                 </div>
             </div> 
             <div class="participant">
+                <div class="icon" title="">
+                    <img src="origins/bolt.png" alt="Инчлинг">
+                    <span class="tooltip">Инчлинг</span>
+                </div>
                 <img src="head/Sevetyan.png" alt="Севетян">
                 <p>Севетян</p>
                 <div class="links">
@@ -513,6 +759,10 @@
                 </div>
             </div> 
             <div class="participant">
+                <div class="icon" title="">
+                    <img src="origins/cat.png" alt="Коточеловек">
+                    <span class="tooltip">Коточеловек</span>
+                </div>
                 <img src="head/SmmAssH.png" alt="Смэш">
                 <p>Смэш</p>
                 <div class="links">
@@ -521,6 +771,10 @@
                 </div>
             </div> 
             <div class="participant">
+                <div class="icon" title="">
+                    <img src="origins/shulker.png" alt="Шалкер">
+                    <span class="tooltip">Шалкер</span>
+                </div>
                 <img src="head/hrel_mc.png" alt="Хрел">
                 <p>Хрел</p>
                 <div class="links">
@@ -529,6 +783,10 @@
                 </div>
             </div> 
             <div class="participant">
+                <div class="icon" title="">
+                    <img src="origins/fish.png" alt="Рыба">
+                    <span class="tooltip">Рыба</span>
+                </div>
                 <img src="head/Fereden.png" alt="Фереден">
                 <p>Фереден</p>
                 <div class="links">
@@ -537,6 +795,10 @@
                 </div>
             </div> 
             <div class="participant">
+                <div class="icon" title="">
+                    <img src="origins/fish.png" alt="Рыба">
+                    <span class="tooltip">Рыба</span>
+                </div>
                 <img src="head/MrsChiba.png" alt="Чиба">
                 <p>Чиба</p>
                 <div class="links">
@@ -545,6 +807,10 @@
                 </div>
             </div> 
             <div class="participant">
+                <div class="icon" title="">
+                    <img src="origins/ad.png" alt="Огнерождённый">
+                    <span class="tooltip">Огнерождённый</span>
+                </div>
                 <img src="head/Eboni_Inobe.png" alt="Эбони">
                 <p>Эбони</p>
                 <div class="links">
@@ -552,9 +818,272 @@
                     <a href="https://www.twitch.tv/eboni_inobe" target="_blank">Твич</a>
                 </div>
             </div> 
-
         </div>
     </div>
+
+    <div class="news">
+        <div class="video">
+            <iframe src="https://www.youtube.com/embed/G7Naqi4Nhss" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="text">
+            <h2>Новости</h2>
+            <p>Выпуск новостей номер один, Теперь на канале Кор будут выходить новостные выпуски о том, что произошло на нашем сервере за 2 недели (100 дней). Основными участниками новостей будут Опти, Новикони и конечно же Випс <br> <br>Cмотрите нас на официальном канале Кор, у нас всегда интересно!</p>
+            <button onclick="window.open('https://youtu.be/G7Naqi4Nhss', '_blank')">Смотреть первый выпуск</button>
+            <button onclick="window.open('https://www.youtube.com/playlist?list=PL7ZfbhFzL0b9HQuHjiC6mKQWUh6-5t56Z', '_blank')">Все выпуски</button>
+        </div>
+    </div>     
+
+    <div class="origins">
+        <h2>Расы, существующие на сервере, их представители и особенности</h2>
+        <div class="list">
+            <div class="participant">
+                <h3>
+                    <img src="origins/fish.png" alt="Рыба" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px; scale: 150%">
+                    Рыба
+                </h3>
+                <p><strong>Представители:</strong></p>
+                <ul>
+                    <li>Наклс</li>
+                    <li>Фереден</li>
+                    <li>Чиба</li>
+                </ul>
+                <p><strong>Особенности:</strong></p>
+                <ul>
+                    <li>Дышит под водой</li>
+                    <li>Быстро плавает и копает</li>
+                </ul>
+            </div>
+            <div class="participant">
+                <h3>
+                    <img src="origins/wolf.png" alt="Волк" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px; scale: 150%">
+                    Волк
+                </h3>
+                <p><strong>Представители:</strong></p>
+                <ul>
+                    <li>Аклимка</li>
+                </ul>
+                <p><strong>Особенности:</strong></p>
+                <ul>
+                    <li>Имеет девять сердец здоровья</li>
+                    <li>Высота прыжка больше</li>
+                    <li>Отсутствует урон от падения</li>
+                    <li>Питается только мясом</li>
+                    <li>Наносит больше урона при ударе ночью</li>
+                </ul>
+            </div>
+            <div class="participant">
+                <h3>
+                    <img src="origins/dragon.png" alt="Драконорождённый" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px; scale: 150%">
+                    Драконорождённый
+                </h3>
+                <p><strong>Представители:</strong></p>
+                <ul>
+                    <li>Опти</li>
+                </ul>
+                <p><strong>Особенности:</strong></p>
+                <ul>
+                    <li>Имеет дополнительные два сердца здоровья</li>
+                    <li>Питается только мясом и аметистами</li>
+                    <li>Не получает урон от падения</li>
+                    <li>Имеет рост в три блока</li>
+                    <li>Способен извергать драконье дыхание, но только закупоривая его в колбы</li>
+                    <li>Не может крафтить и использовать щит</li>
+                    <li>Получает сильный урон в спину</li>
+                </ul>
+            </div>
+            <div class="participant">
+                <h3>
+                    <img src="origins/bolt.png" alt="Инчлинг" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px; scale: 150%">
+                    Инчлинг
+                </h3>
+                <p><strong>Представители:</strong></p>
+                <ul>
+                    <li>Руник</li>
+                    <li>Севетян</li>
+                </ul>
+                <p><strong>Особенности:</strong></p>
+                <ul>
+                    <li>Обладает пятью сердцами здоровья</li>
+                    <li>Имеет рост в половину блока</li>
+                    <li>Не получает урон от падения и шипов</li>
+                    <li>Медленнее уменьшается шкала голода</li>
+                    <li>Может карабкаться по блокам</li>
+                </ul>
+            </div>
+            <div class="participant">
+                <h3>
+                    <img src="origins/cat.png" alt="Коточеловек" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px; scale: 150%">
+                    Коточеловек
+                </h3>
+                <p><strong>Представители:</strong></p>
+                <ul>
+                    <li>ГоверНед</li>
+                    <li>Магмуст</li>
+                    <li>Пиво</li>
+                    <li>Смэш</li>
+                </ul>
+                <p><strong>Особенности:</strong></p>
+                <ul>
+                    <li>Имеет девять сердец здоровья, питается только мясом</li>
+                    <li>Высота прыжка больше, а урон от падения отсутствует</li>
+                    <li>Отпугивает от себя криперов</li>
+                    <li>Обладает эффектом ночного зрения</li>
+                </ul>
+            </div>
+            <div class="participant">
+                <h3>
+                    <img src="origins/zombi.png" alt="Нежить" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px; scale: 150%">
+                    Нежить
+                </h3>
+                <p><strong>Представители:</strong></p>
+                <ul>
+                    <li>Новикони</li>
+                </ul>
+                <p><strong>Особенности:</strong></p>
+                <ul>
+                    <li>Горит на солнце, если не использует шлем</li>
+                    <li>Не может плавать</li>
+                    <li>Питается мясом и гнилой плотью</li>
+                    <li>Зелья и стрелы урона и моментального здоровья наносят обратные эффекты</li>
+                    <li>Нежить не атакует</li>
+                    <li>Атака ближнего боя способна превратить жителя в зомби</li>
+                </ul>
+            </div>
+            <div class="participant">
+                <h3>
+                    <img src="origins/ad.png" alt="Огнерождённый" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px; scale: 150%">
+                    Огнерождённый
+                </h3>
+                <p><strong>Представители:</strong></p>
+                <ul>
+                    <li>Мартском</li>
+                    <li>Эбони</li>
+                </ul>
+                <p><strong>Особенности:</strong></p>
+                <ul>
+                    <li>Не получает урон от огня</li>
+                    <li>Наносит больше урона при ударе во время горения</li>
+                    <li>Обладает иммунитетом к яду и отравлению</li>
+                    <li>Получает урон от воды и дождя</li>
+                    <li>Спавнится в Аду и не может поставить точку возрождения в Верхнем мире</li>
+                </ul>
+            </div>
+            <div class="participant">
+                <h3>
+                    <img src="origins/bee.png" alt="Пчела" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px; scale: 150%">
+                    Пчела
+                </h3>
+                <p><strong>Представители:</strong></p>
+                <ul>
+                    <li>Бизз</li>
+                    <li>ВакМакак</li>
+                </ul>
+                <p><strong>Особенности:</strong></p>
+                <ul>
+                    <li>Имеет восемь сердец здоровья, может есть только растительную пищу</li>
+                    <li>При ударе «жалит» — наносит эффект отравления</li>
+                    <li>Может «собирать пыльцу» с цветов, заполняет ей особую шкалу мёда и получает при этом эффект регенерации</li>
+                    <li>Умеет летать, пока шкала мёда заполнена. Способность блокируется во время дождя</li>
+                    <li>Может собирать мёд в бутылку</li>
+                    <li>Пчёлы не агрятся, если их ударить, а из улья можно безопасно забрать мёд</li>
+                </ul>
+            </div>
+            <div class="participant">
+                <h3>
+                    <img src="origins/roi.png" alt="Разум роя" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px; scale: 150%">
+                    Разум роя
+                </h3>
+                <p><strong>Представители:</strong></p>
+                <ul>
+                    <li>Змец</li>
+                </ul>
+                <p><strong>Особенности:</strong></p>
+                <ul>
+                    <li>Обладает ростом в полтора блока и большим аппетитом</li>
+                    <li>Имеет восемь сердец здоровья и способен питаться бумагой и книгами</li>
+                    <li>Тело состоит из мелких чешуйниц, поэтому не обладает постоянным состоянием и пропорции показателей нарушены</li>
+                    <li>При ударе игрока накладывает эффект «Заражение»</li>
+                    <li>Способен спавнить чешуйниц, жертвуя при этом здоровьем</li>
+                </ul>
+            </div>
+            <div class="participant">
+                <h3>
+                    <img src="origins/shulker.png" alt="Шалкер" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px; scale: 150%">
+                    Шалкер
+                </h3>
+                <p><strong>Представители:</strong></p>
+                <ul>
+                    <li>Випс</li>
+                    <li>Мафинев</li>
+                    <li>Оля Чесапик</li>
+                    <li>Хрел</li>
+                </ul>
+                <p><strong>Особенности:</strong></p>
+                <ul>
+                    <li>Обладает дополнительными защитой и девятью слотами инвентаря</li>
+                    <li>Не может носить алмазную и незеритовую броню и щит</li>
+                    <li>Обладает способностью копать камень и его виды — андезит, диорит, гранит и туф — без инструмента</li>
+                    <li>Быстрее уменьшается шкала голода</li>
+                </ul>
+            </div>
+            <div class="participant">
+                <h3>
+                    <img src="origins/ender.png" alt="Эндерианец" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px; scale: 150%">
+                    Эндерианец
+                </h3>
+                <p><strong>Представители:</strong></p>
+                <ul>
+                    <li>Нагги</li>
+                </ul>
+                <p><strong>Особенности:</strong></p>
+                <ul>
+                    <li>Получает урон от воды</li>
+                    <li>Способен использовать собственный эндер-жемчуг</li>
+                    <li>Не видит игроков, на которых надеты тыквы</li>
+                    <li>Может дотянуться до блоков и существ, находящихся на расстоянии шести блоков</li>
+                </ul>
+            </div>
+            <div class="participant">
+                <h3>
+                    <img src="origins/elytra.png" alt="Элитрианец" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px; scale: 150%">
+                    Элитрианец
+                </h3>
+                <p><strong>Представители:</strong></p>
+                <ul>
+                    <li>Клюв</li>
+                    <li>Нагибайка</li>
+                </ul>
+                <p><strong>Особенности:</strong></p>
+                <ul>
+                    <li>Обладает собственными «вшитыми» элитры</li>
+                    <li>Имеет собственную тягу — способность летать без использования фейерверков</li>
+                    <li>Может носить только кожаную и кольчужную броню</li>
+                    <li>Во время полёта наносит больший урон</li>
+                    <li>Страдает клаустрофобией: при потолке ниже четырёх блоков накладываются эффекты медлительности и слабости</li>
+                    <li>Получает большой урон от падения</li>
+                </ul>
+            </div>
+            <div class="participant">
+                <h3>
+                    <img src="origins/human.png" alt="Человек" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px; scale: 150%">
+                    Человек
+                </h3>
+                <p><strong>Представители:</strong></p>
+                <ul>
+                    <li>Винкс</li>
+                    <li>Кавкин</li>
+                    <li>Пупи</li>
+                </ul>
+                <p><strong>Особенности:</strong></p>
+                <ul>
+                    <li>Не обладает никакими способностями</li>
+                </ul>
+            </div>
+                     
+        </div>
+    </div>
+    
+
     <div class="background"></div>
     <footer>
         <p>Этот сайт не связан с Mojang Studios и не имеет отношения к официальным продуктам Minecraft.</p>
