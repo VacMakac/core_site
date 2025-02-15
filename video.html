@@ -48,7 +48,14 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             border: 2px solid rgba(255, 255, 255, 0.05);
             cursor: pointer;
-            transition: box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+
+        .tile:hover {
+            transform: scale(1.05);
+            transition: transform 0.2s;
         }
 
         .tile:hover img {
@@ -59,17 +66,23 @@
             width: 100%;
             border-radius: 10px;
             transition: transform 0.3s;
+            position: relative;
+            z-index: 1;
         }
 
         .title {
             font-size: 1.2em;
             margin: 10px 0;
+            position: relative;
+            z-index: 1;
         }
 
         .info {
             font-size: 0.9em;
             color: #858585;
             margin: 5px 0;
+            position: relative;
+            z-index: 1;
         }
 
         .nickname {
@@ -131,18 +144,137 @@
             background: #fff;
             color: #000;
         }
+
+        .home-icon {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            transition: transform 0.3s;
+        }
+
+        .home-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .home-icon img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .total-views {
+            width: 100%;
+            text-align: center;
+            font-size: 1.5em;
+            margin-bottom: 5px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .icon-with-number {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .icon-with-number img.icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        .filter-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            transition: transform 0.3s;
+        }
+
+        .filter-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .filter-icon img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .filters-popup {
+            position: fixed;
+            top: 20px;
+            right: -350px;
+            width: 300px;
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease-in-out;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .filters-popup.open {
+            transform: translateX(-370px);
+        }
+
+        .filters-content select {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 1em;
+            border-radius: 5px;
+            border: none;
+            background-color: #333;
+            color: #fff;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+        }
     </style>
 </head>
 <body>
-    <div class="total-views">Общее количество просмотров: 0</div>
+    <div class="home-icon" onclick="window.location.href='https://core-squad.ru/'">
+        <img src="/logo.png" alt="Home">
+    </div>
+    <div class="filter-icon" onclick="toggleFilters()">
+        <img src="/icons/settings.png">
+    </div>
+    <div class="total-views">
+        <span class="icon-with-number">
+          <img src="/icons/view.png" alt="Просмотры" class="icon" /> <span id="totalViewsCount">0</span>
+        </span>
+        <span class="icon-with-number">
+          <img src="/icons/video_list.png" alt="Видео" class="icon" /> <span id="totalVideosCount">0</span>
+        </span>
+      </div>
     <div class="update-info">*статистика обновляется раз в час</div>
+    <div class="filters-popup">
+        <div class="filters-content">
+            <select id="sort-by">
+                <option value="date-desc" selected>По дате (сначала новые)</option>
+                <option value="date-asc">По дате (сначала старые)</option>
+                <option value="views-desc">По количеству просмотров (по убыванию)</option>
+                <option value="views-asc">По количеству просмотров (по возрастанию)</option>
+            </select>
+            <select id="filter-by-channel">
+                <option value="all">Все каналы</option>
+            </select>
+        </div>
+    </div>
     <script>
         const GOOGLE_SHEET_ID = '1ufJddrmj3FfaJHAcMUrEI1WkOkffLmOwhZkFU_adzPc';
         const SHEET_NAME = 'VIDEO';
         const SHEETS_API_KEY = 'AIzaSyAb0ShTprNhCSvnnpGfomhkLEXnDcl4NSI';
 
         let totalViews = 0;
+        let totalVideos = 0;
         const totalViewsElement = document.querySelector('.total-views');
+        let videos = [];
 
         setTimeout(() => {
             document.body.style.cursor = 'default';
@@ -156,8 +288,18 @@
 
                 if (data.values && data.values.length > 1) {
                     const rows = data.values.slice(1);
-                    displayVideos(rows);
-                    updateTotalViews(rows);
+                    videos = rows.map(row => ({
+                        link: row[0],
+                        title: row[1],
+                        channel: row[2],
+                        views: parseInt(row[3]),
+                        date: row[4],
+                        dateParsed: parseDate(row[4]),
+                        thumbnail: row[5]
+                    }));
+                    displayVideos(videos);
+                    updateTotalViews(videos);
+                    populateChannelFilter(videos);
                 } else {
                     console.error("Нет данных в таблице.");
                 }
@@ -166,25 +308,45 @@
             }
         };
 
-        const displayVideos = (rows) => {
-            rows.forEach(row => {
-                const [link, title, channel, views, date, thumbnail] = row;
+        const parseDate = (dateString) => {
+            const months = {
+                'января': '01',
+                'февраля': '02',
+                'марта': '03',
+                'апреля': '04',
+                'мая': '05',
+                'июня': '06',
+                'июля': '07',
+                'августа': '08',
+                'сентября': '09',
+                'октября': '10',
+                'ноября': '11',
+                'декабря': '12'
+            };
 
+            const [day, month, year] = dateString.split(' ');
+            const monthNumber = months[month];
+            return `${year}-${monthNumber}-${day.padStart(2, '0')}`;
+        };
+
+        const displayVideos = (videos) => {
+            document.querySelectorAll('.tile').forEach(tile => tile.remove());
+            videos.forEach(video => {
                 const container = document.createElement('div');
                 container.className = 'tile';
-                container.onclick = () => window.open(link, '_blank');
+                container.onclick = () => window.open(video.link, '_blank');
 
                 const thumbnailImg = document.createElement('img');
-                thumbnailImg.src = thumbnail || 'placeholder.jpg';
-                thumbnailImg.alt = title;
+                thumbnailImg.src = video.thumbnail || 'placeholder.jpg';
+                thumbnailImg.alt = video.title;
 
                 const titleDiv = document.createElement('div');
                 titleDiv.className = 'title';
-                titleDiv.textContent = title;
+                titleDiv.textContent = video.title;
 
                 const infoDiv = document.createElement('div');
                 infoDiv.className = 'info';
-                infoDiv.innerHTML = `<span class="nickname">${channel}</span><br>${Number(views).toLocaleString()} просмотров<br>${date}`;
+                infoDiv.innerHTML = `<span class="nickname">${video.channel}</span><br>${video.views.toLocaleString()} просмотров<br>${video.date}`;
 
                 container.appendChild(thumbnailImg);
                 container.appendChild(titleDiv);
@@ -194,10 +356,64 @@
             });
         };
 
-        const updateTotalViews = (rows) => {
-            totalViews = rows.reduce((sum, row) => sum + (parseInt(row[3]) || 0), 0);
-            totalViewsElement.textContent = `Общее количество просмотров: ${totalViews.toLocaleString()}`;
+        const updateTotalViews = (videos) => {
+            totalViews = videos.reduce((sum, video) => sum + video.views, 0);
+            totalVideos = videos.length;
+
+            document.getElementById('totalViewsCount').textContent = totalViews.toLocaleString();
+            document.getElementById('totalVideosCount').textContent = totalVideos;
         };
+
+        const populateChannelFilter = (videos) => {
+            const channelFilter = document.getElementById('filter-by-channel');
+            const channels = [...new Set(videos.map(video => video.channel))];
+            channels.forEach(channel => {
+                const option = document.createElement('option');
+                option.value = channel;
+                option.textContent = channel;
+                channelFilter.appendChild(option);
+            });
+        };
+
+        const applyFilters = () => {
+            const sortBy = document.getElementById('sort-by').value;
+            const filterByChannel = document.getElementById('filter-by-channel').value;
+
+            let filteredVideos = videos;
+            if (filterByChannel !== 'all') {
+                filteredVideos = videos.filter(video => video.channel === filterByChannel);
+            }
+
+            if (sortBy === 'views-desc') {
+                filteredVideos.sort((a, b) => b.views - a.views);
+            } else if (sortBy === 'views-asc') {
+                filteredVideos.sort((a, b) => a.views - b.views);
+            } else if (sortBy === 'date-desc') {
+                filteredVideos.sort((a, b) => b.dateParsed.localeCompare(a.dateParsed));
+            } else if (sortBy === 'date-asc') {
+                filteredVideos.sort((a, b) => a.dateParsed.localeCompare(b.dateParsed));
+            }
+
+            displayVideos(filteredVideos);
+            updateTotalViews(filteredVideos);
+        };
+
+        function toggleFilters() {
+            const popup = document.querySelector('.filters-popup');
+            popup.classList.toggle('open');
+        }
+
+        document.addEventListener('click', (event) => {
+            const popup = document.querySelector('.filters-popup');
+            const filterIcon = document.querySelector('.filter-icon');
+
+            if (!popup.contains(event.target) && !filterIcon.contains(event.target)) {
+                popup.classList.remove('open');
+            }
+        });
+
+        document.getElementById('sort-by').addEventListener('change', applyFilters);
+        document.getElementById('filter-by-channel').addEventListener('change', applyFilters);
 
         fetchData();
     </script>
